@@ -27,9 +27,6 @@
 
         try {
             $sql = "UPDATE projecten SET project_name = '" . $_POST['project_name'] . "', descr_short = '" . $_POST['descr_short'] . "', desc_long = '" . $_POST['desc_long'] . "', timeframe = '" . $_POST['timeframe'] . "', type = '" . $_POST['type'] . "', githubrepo = '" . $_POST['githubrepo'] . "', image = '" . $_POST['image'] . "', url = '" . $_POST['url'] . "' WHERE id = " . $project;
-
-            echo $sql;
-
             $conn->exec($sql);
             echo "Updated record successfully";
         } catch (PDOException $e) {
@@ -60,7 +57,7 @@
     }
     $conn = null;
 
-    
+
 
     ?>
 

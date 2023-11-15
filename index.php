@@ -8,34 +8,34 @@
 </head>
 
 <body>
-<form action="" method="post">
-<input type="text" name="search">
-</form>
+    <form action="" method="post">
+        <input type="text" name="search">
+    </form>
 
     <?php
 
 
     include 'connect.php';
 
-$search = $_REQUEST['search'];
-$filter = " WHERE project_name LIKE '%".$search."%' OR descr_short LIKE '%".$search."%' OR desc_long LIKE '%".$search."%'";
+    $search = $_REQUEST['search'];
+    $filter = " WHERE project_name LIKE '%" . $search . "%' OR descr_short LIKE '%" . $search . "%' OR desc_long LIKE '%" . $search . "%'";
 
-$page = $_REQUEST['p'];
-$limit = " LIMIT 0,5";
-if(isset($_REQUEST['p'])){
-$limit = " LIMIT " . $_REQUEST['p'] . ",5";
-}
+    $page = $_REQUEST['p'];
+    $limit = " LIMIT 0,5";
+    if (isset($_REQUEST['p'])) {
+        $limit = " LIMIT " . $_REQUEST['p'] . ",5";
+    }
 
     try {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT id, project_name, descr_short FROM projecten".$filter.$limit);
+        $stmt = $conn->prepare("SELECT id, project_name, descr_short FROM projecten" . $filter . $limit);
         $stmt->execute();
 
         // set the resulting array to associative
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($stmt->fetchAll() as $k => $v) {
-            echo "<a href='detail.php?project=" . $v['id'] . "'>view detials</a>";
-            echo "<a href='edit.php?project=" . $v['id'] . "'>edit details</a>";
+            echo "<a href='detail.php?project=" . $v['id'] . "'>view</a> - ";
+            echo "<a href='edit.php?project=" . $v['id'] . "'>edit</a> - ";
             echo $v['id'] . ": ";
             echo $v['project_name'];
             echo " - " . $v['descr_short'];
@@ -46,9 +46,13 @@ $limit = " LIMIT " . $_REQUEST['p'] . ",5";
     }
     $conn = null;
     ?>
-<a href="">1</a>
-<a href="?p=1">2</a>
-<a href="?p=2">3</a>
+    <br>
+    <a href="add.php">Nieuw Record Toevoegen</a>
+    <br>
+    <br>
+    <a href="">1</a>
+    <a href="?p=1">2</a>
+    <a href="?p=2">3</a>
 </body>
 
 </html>
